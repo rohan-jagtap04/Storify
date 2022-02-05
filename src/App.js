@@ -34,6 +34,10 @@ function App() {
         >
           Learn React
         </a>
+        <script>
+          console.log(app)
+          console.log(analytics)
+        </script>
       </header>
     </div>
   );
