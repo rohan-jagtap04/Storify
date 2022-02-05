@@ -1,7 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { initializeApp } from 'firebase/app';
+import { getAnalytics } from 'firebase/analytics';
+import TextField from "@material-ui/core/TextField";
+import { Button } from '@material-ui/core';
 
 const firebaseConfig = {
   apiKey: "AIzaSyD9au9Y-Bhx4C7Uf3xA-b3G9X0-9RoMNhU",
@@ -21,24 +23,13 @@ const analytics = getAnalytics(app);
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <script>
-          console.log(app)
-          console.log(analytics)
-        </script>
-      </header>
+      <h1> Login </h1>
+
+      <div className="vertical-center">
+        <TextField id="outlined-basic" label="E-mail" variant="outlined" margin="normal" />
+        <TextField id="outlined-basic" label="Sign Up" variant="outlined" margin="normal" />
+        <Button variant="contained" > Sign In</Button>
+      </div>
     </div>
   );
 }
