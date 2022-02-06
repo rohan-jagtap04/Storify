@@ -1,31 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
-import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
 
+import { commerce } from './lib/commerce';
+import { Products, Navbar } from './components';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyD9au9Y-Bhx4C7Uf3xA-b3G9X0-9RoMNhU",
-  authDomain: "testapp-dd266.firebaseapp.com",
-  databaseURL: "https://testapp-dd266.firebaseio.com",
-  projectId: "testapp-dd266",
-  storageBucket: "testapp-dd266.appspot.com",
-  messagingSenderId: "97391103528",
-  appId: "1:97391103528:web:45bbba0e98743fda79af1d",
-  measurementId: "G-NXEC03F6GB"
-};
+const App = () => {
+  const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState({});
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+  const fetchProducts = async () => {
+    const { data } = await commerce.products.list();
+    setProducts(data);
+  
+  }
 
-function App() {
+  const fetchCart = async () => {
+    setCart(await commerce.cart.retrieve());
+  }
+
+  const handleAddToCart = async (productId, quantity) => {
+    const item = await commerce.cart.add(productId, quantity);
+    setCart(item.cart);
+  }
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  console.log(products);
+
   return (
-    <div className="App">
-
+    <div>
+        <Navbar totalItems={cart.total_items} />
+        <Products products={products} onAddToCart={handleAddToCart}/>
     </div>
-  );
+  )
 }
 
 export default App;
